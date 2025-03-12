@@ -1,0 +1,76 @@
+{
+  "_format": "hh-sol-cache-2",
+  "files": {
+    "C:\\Users\\Levy\\Solidity\\node_modules\\hardhat\\contracts\\scheduled_message.sol": {
+      "lastModificationDate": 1741730999575,
+      "contentHash": "7ea221f418a827e14c7903c24b1b9487",
+      "sourceName": "contracts/scheduled_message.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ScheduledMessage"
+      ]
+    },
+    "C:\\Users\\Levy\\Solidity\\node_modules\\hardhat\\contracts\\eth_transfer_trigger.sol": {
+      "lastModificationDate": 1741730997641,
+      "contentHash": "5b216d1b54cfade5f951730c0706479e",
+      "sourceName": "contracts/eth_transfer_trigger.sol",
+      "solcConfig": {
+        "version": "0.8.0",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.0"
+      ],
+      "artifacts": [
+        "ETHTransferTrigger",
+        "IScheduledMessage"
+      ]
+    }
+  }
+}
