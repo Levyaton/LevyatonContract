@@ -30,30 +30,39 @@ contract ScheduledMessage {
     function scheduleMessage(string memory fullMessage, uint256 parts, string memory hint) public onlyOwner {
         require(parts > 0, "Parts must be > 0");
         bytes memory fullBytes = bytes(fullMessage);
-        uint256 L = fullBytes.length;
-        require(parts <= L, "Parts cannot exceed message length");
+        uint256 byteLength = fullBytes.length;
+        require(parts <= byteLength, "Parts cannot exceed message length");
 
-        // Clear previous schedule.
-        delete scheduledMessages;
-        currentMessageIndex = 0;
-        
-        // Calculate base size and remainder.
-        uint256 basePartSize = L / parts;
-        uint256 remainder = L % parts;
+        clearSchedule();
+        populateSchedule(fullBytes, byteLength, parts, hint);
+    }
+
+    function populateSchedule(bytes memory fullBytes, uint256 byteLength, uint256 parts, string memory hint) private {
+        uint256 basePartSize = byteLength / parts;
+        uint256 remainder = byteLength % parts;
         
         for (uint256 i = 0; i < parts; i++) {
-            uint256 extra = i < remainder ? 1 : 0;
+            bytes memory messageSegment = splitMessage(i, remainder, basePartSize, fullBytes);
+            scheduledMessages.push(string(messageSegment));
+        }
+        scheduledMessages.push(hint);
+    }
+
+    function splitMessage(uint256 segment, uint256 remainder, uint256 basePartSize, bytes memory fullBytes) private pure returns (bytes memory) {
+        uint256 extra = segment < remainder ? 1 : 0;
             uint256 currentPartSize = basePartSize + extra;
-            uint256 start = i * basePartSize + (i < remainder ? i : remainder);
+            uint256 start = segment * basePartSize + (segment < remainder ? segment : remainder);
             
             bytes memory partBytes = new bytes(currentPartSize);
             for (uint256 j = 0; j < currentPartSize; j++) {
                 partBytes[j] = fullBytes[start + j];
             }
-            scheduledMessages.push(string(partBytes));
-        }
-        // Append the hint as the final segment.
-        scheduledMessages.push(hint);
+            return partBytes;
+    }
+
+    function clearSchedule() private {
+        delete scheduledMessages;
+        currentMessageIndex = 0;
     }
 
     /**
